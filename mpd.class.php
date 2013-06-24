@@ -1116,7 +1116,7 @@ class MPD {
 	 * @return string Returns the currenct version of this MPD class
 	 */
 	function get_php_mpd_version() {
-		return $this->$php_mpd_version;
+		return $this->php_mpd_version;
 	}
 	
 	private function validate_type($type) {
