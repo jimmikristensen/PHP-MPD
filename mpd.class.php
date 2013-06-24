@@ -2,7 +2,7 @@
 /* 
  * PHP MPD (mpd.class.php) is a single PHP class that gives easy access to 
  * a MPD (Music Player Daemon) server from any web application.
- * Copyright (C) 2011  Jimmi Kristensen (jimmi@linuxvibe.dk)
+ * Copyright (C) 2011  Jimmi Kristensen (picbot@gmail.com)
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -104,10 +104,6 @@ class MPD {
 	private $audio;
 	private $single;
 	
-	function MPD() {
-		
-	}
-	
 	/**
 	 * Instantiate the MPD object 
 	 * 
@@ -117,7 +113,7 @@ class MPD {
 	 * @param integer $conn_timeout (Optional) Timeout of the MPD connection
 	 * @return boolean Returns the connection state
 	 */
-	function load_MPD($host, $port, $pwd = '', $conn_timeout = 10) {
+	function MPD($host, $port, $pwd = '', $conn_timeout = 10) {
 		$this->host = $host;
 		$this->port = $port;
 		$this->pwd = $pwd;
@@ -1001,7 +997,7 @@ class MPD {
 				
 				// catch the message at the end of transmission
 				if (strncmp(RES_ERR, $res, strlen(RES_ERR)) == 0) {
-					list ($tmp, $err) = explode(RES_ERR . ' ', $res);
+					list ($tmp, $err) = split(RES_ERR . ' ', $res);
 					$this->err_log[] = strtok($err, "\n");
 				}
 				
@@ -1033,7 +1029,7 @@ class MPD {
 			$srv_stats = $this->parse_list($stats_res, true);
 		}
 		$this->server_statistics = $srv_stats;
-		
+
 		// get Server Status
 		$status_res = $this->cmd(CMD_STATUS);
 		if ($status_res === false) {
@@ -1043,7 +1039,7 @@ class MPD {
 			$srv_status = $this->parse_list($status_res, true);
 		}
 		$this->server_status = $srv_status;
-
+		
 		// get playlist
 		$plist_res = $this->cmd(CMD_PLIST);
 		$this->playlist = $this->parse_playlist($plist_res);
@@ -1052,7 +1048,7 @@ class MPD {
 		$this->state = $srv_status['state'];
 		if ($this->state == STATE_PLAYING || $this->state == STATE_PAUSED) {
 			$this->current_track_id = $srv_status['songid'];
-			list ($this->current_track_pos, $this->current_track_len) = explode(":", $srv_status['time']);
+			list ($this->current_track_pos, $this->current_track_len) = split(":", $srv_status['time']);
 		} else {
 			$this->current_track_id = -1;
 			$this->current_track_pos = -1;
@@ -1064,8 +1060,8 @@ class MPD {
 		$this->volume = $srv_status['volume'];
 		$this->consume = $srv_status['consume'];
 		$this->xfade = $srv_status['xfade'];
-		$this->bitrate = isset($srv_status['bitrate']) ? $srv_status['bitrate'] : 0;
-		$this->audio = isset($srv_status['audio']) ? $srv_status['audio'] : 0;
+		$this->bitrate = $srv_status['bitrate'];
+		$this->audio = $srv_status['audio'];
 		$this->single = $srv_status['single'];
 		
 		$this->db_last_updated = $srv_stats['db_update'];
@@ -1152,7 +1148,7 @@ class MPD {
 		} else {
 			$list_line = strtok($list_res, "\n");
 			while ($list_line) {
-				list ($key, $value) = explode(": ", $list_line);
+				list ($key, $value) = split(": ", $list_line);
 				if ($value != '') {
 					if ($use_str_assoc === true) {
 						$list[$key] = $value;
@@ -1176,7 +1172,7 @@ class MPD {
 			$counter = -1;
 			$type = 'unknown';
 			while ($plist_line) {
-				list ($key, $value) = explode(": ", $plist_line);
+				list ($key, $value) = split(": ", $plist_line);
 				if ($key == 'file' || $key == 'directory' || $key == 'playlist') {
 					$type = $key;
 					$counter++;
