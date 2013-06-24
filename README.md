@@ -3,6 +3,13 @@ PHP-MPD
 
 A PHP library to communicated with Music Player Daemon.
 
+This PHP class lets you develop a web-interface for Music Player Daemon (MPD). 
+It provides easy interaction with any (MPD) server and it very simple to use. 
+You do not have to know much about MPD to use this class, as long as you know 
+the IP, Port and Password of the MPD, this class lets you execute any of the 
+functions available in the MPD server and returns the information back to you 
+in a easy managable format that lets you use the information on your web-interface.
+
 Useful Resources:<br/>
 MPD Community Wiki: [http://mpd.wikia.com/wiki/MusicPlayerDaemonWiki](http://mpd.wikia.com/wiki/Music_Player_Daemon_Wiki "Title")<br/>
 MPD Wiki Page: [http://en.wikipedia.org/wiki/MusicPlayerDaemon](http://en.wikipedia.org/wiki/Music_Player_Daemon "Title")
