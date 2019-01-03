@@ -997,7 +997,7 @@ class MPD {
 				
 				// catch the message at the end of transmission
 				if (strncmp(RES_ERR, $res, strlen(RES_ERR)) == 0) {
-					list ($tmp, $err) = split(RES_ERR . ' ', $res);
+					list ($tmp, $err) = explode(RES_ERR . ' ', $res);
 					$this->err_log[] = strtok($err, "\n");
 				}
 				
@@ -1048,7 +1048,7 @@ class MPD {
 		$this->state = $srv_status['state'];
 		if ($this->state == STATE_PLAYING || $this->state == STATE_PAUSED) {
 			$this->current_track_id = $srv_status['songid'];
-			list ($this->current_track_pos, $this->current_track_len) = split(":", $srv_status['time']);
+			list ($this->current_track_pos, $this->current_track_len) = explode(":", $srv_status['time']);
 		} else {
 			$this->current_track_id = -1;
 			$this->current_track_pos = -1;
@@ -1148,7 +1148,7 @@ class MPD {
 		} else {
 			$list_line = strtok($list_res, "\n");
 			while ($list_line) {
-				list ($key, $value) = split(": ", $list_line);
+				list ($key, $value) = explode(": ", $list_line);
 				if ($value != '') {
 					if ($use_str_assoc === true) {
 						$list[$key] = $value;
@@ -1172,7 +1172,7 @@ class MPD {
 			$counter = -1;
 			$type = 'unknown';
 			while ($plist_line) {
-				list ($key, $value) = split(": ", $plist_line);
+				list ($key, $value) = explode(": ", $plist_line);
 				if ($key == 'file' || $key == 'directory' || $key == 'playlist') {
 					$type = $key;
 					$counter++;
