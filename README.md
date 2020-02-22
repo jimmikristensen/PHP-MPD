@@ -16,13 +16,13 @@ MPD Wiki Page: [http://en.wikipedia.org/wiki/MusicPlayerDaemon](http://en.wikipe
 
 Quick Usage Example
 -------
-    require('mpd.class.php');
-    $mpd = new MPD('localhost', 6600, 'my_password');
-    if ($mpd === true) {
-      // connection successful
-    } else {
-      echo $mpd->get_error();
-    }
+	require('mpd.class.php');
+	$mpd = new MPD('localhost', 6600);
+	if ($mpd->get_connection_status()) {
+		print_r($mpd->server_status());
+	} else {
+		print_r($mpd->get_error());
+	}
 
 API
 --------

@@ -113,13 +113,14 @@ class MPD {
 	 * @param integer $conn_timeout (Optional) Timeout of the MPD connection
 	 * @return boolean Returns the connection state
 	 */
-	function MPD($host, $port, $pwd = '', $conn_timeout = 10) {
+	function __construct($host, $port, $pwd = '', $conn_timeout = 10) {
 		$this->host = $host;
 		$this->port = $port;
 		$this->pwd = $pwd;
 		$this->conn_timeout = $conn_timeout;
 		
 		$conn = $this->connect();
+		
 		if ($conn === false) {
 			return false;
 		} else {
@@ -997,7 +998,7 @@ class MPD {
 				
 				// catch the message at the end of transmission
 				if (strncmp(RES_ERR, $res, strlen(RES_ERR)) == 0) {
-					list ($tmp, $err) = split(RES_ERR . ' ', $res);
+					list ($tmp, $err) = explode(RES_ERR . ' ', $res);
 					$this->err_log[] = strtok($err, "\n");
 				}
 				
@@ -1048,7 +1049,7 @@ class MPD {
 		$this->state = $srv_status['state'];
 		if ($this->state == STATE_PLAYING || $this->state == STATE_PAUSED) {
 			$this->current_track_id = $srv_status['songid'];
-			list ($this->current_track_pos, $this->current_track_len) = split(":", $srv_status['time']);
+			list ($this->current_track_pos, $this->current_track_len) = explode(":", $srv_status['time']);
 		} else {
 			$this->current_track_id = -1;
 			$this->current_track_pos = -1;
@@ -1059,9 +1060,9 @@ class MPD {
 		$this->random = $srv_status['random'];
 		$this->volume = $srv_status['volume'];
 		$this->consume = $srv_status['consume'];
-		$this->xfade = $srv_status['xfade'];
-		$this->bitrate = $srv_status['bitrate'];
-		$this->audio = $srv_status['audio'];
+		$this->xfade = isset($srv_status['xfade']) ? $srv_status['xfade'] : 0;
+		$this->bitrate = isset($srv_status['bitrate']) ? $srv_status['bitrate'] : 0;
+		$this->audio = isset($srv_status['audio']) ? $srv_status['audio'] : 0;
 		$this->single = $srv_status['single'];
 		
 		$this->db_last_updated = $srv_stats['db_update'];
@@ -1148,7 +1149,7 @@ class MPD {
 		} else {
 			$list_line = strtok($list_res, "\n");
 			while ($list_line) {
-				list ($key, $value) = split(": ", $list_line);
+				list ($key, $value) = explode(": ", $list_line);
 				if ($value != '') {
 					if ($use_str_assoc === true) {
 						$list[$key] = $value;
@@ -1172,7 +1173,7 @@ class MPD {
 			$counter = -1;
 			$type = 'unknown';
 			while ($plist_line) {
-				list ($key, $value) = split(": ", $plist_line);
+				list ($key, $value) = explode(": ", $plist_line);
 				if ($key == 'file' || $key == 'directory' || $key == 'playlist') {
 					$type = $key;
 					$counter++;
