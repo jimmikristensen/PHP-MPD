@@ -16,14 +16,15 @@ MPD Wiki Page: [http://en.wikipedia.org/wiki/MusicPlayerDaemon](http://en.wikipe
 
 ## Install
 
-```
-composer require maxi/php-mpd
-```
+	composer require maxi/php-mpd
 
 Quick Usage Example
 -------
-	require('mpd.class.php');
-	$mpd = new MPD('localhost', 6600);
+	require_once 'vendor/autoload.php';
+
+	use Mpd\Mpd;
+
+	$mpd = new Mpd('localhost', 6600);
 	if ($mpd->get_connection_status()) {
 		print_r($mpd->server_status());
 	} else {
