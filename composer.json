@@ -1,0 +1,11 @@
+{
+    "name": "maxi/php-mpd",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Jimmi Kristensen"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {}
+}
