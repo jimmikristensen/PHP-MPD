@@ -6,6 +6,6 @@
             "name": "Jimmi Kristensen"
         }
     ],
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "require": {}
 }

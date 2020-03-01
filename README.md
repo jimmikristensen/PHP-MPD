@@ -14,6 +14,12 @@ __Useful Resources:__<br/>
 MPD Community Wiki: [http://mpd.wikia.com/wiki/MusicPlayerDaemonWiki](http://mpd.wikia.com/wiki/Music_Player_Daemon_Wiki "Title")<br/>
 MPD Wiki Page: [http://en.wikipedia.org/wiki/MusicPlayerDaemon](http://en.wikipedia.org/wiki/Music_Player_Daemon "Title")
 
+## Install
+
+```
+composer require maxi/php-mpd
+```
+
 Quick Usage Example
 -------
 	require('mpd.class.php');
