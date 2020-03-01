@@ -1,0 +1,16 @@
+{
+    "name": "maxi/php-mpd",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Jimmi Kristensen"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Mpd\\":"src/"
+        }
+    }
+}
